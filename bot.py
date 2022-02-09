@@ -31,7 +31,7 @@ class TTHBot(discord.Client):
         if after.channel:
             if need_connect:
                 await after.channel.connect()
-            #self.olha_ele_ae()
+            self.olha_ele_ae()
 
     def olha_ele_ae(self):
         if not self.voice_clients:
