@@ -10,12 +10,28 @@ class TTHBot(discord.Client):
         if member.id == self.user.id: # type: ignore
             return
 
+        voice = None
         if self.voice_clients:
-            await self.voice_clients[0].disconnect()
+            voice = self.voice_clients[0]
+
+        # someone quit from the voice channel
+        if after.channel is None:
+            members = voice.channel.members # type: ignore
+            if voice and len(members) == 1 and members[0].id == self.user.id: # type: ignore
+                await self.voice_clients[0].disconnect()
+                return
+
+        need_connect = True
+        if voice:
+            if after.channel is not None and voice.channel.id != after.channel.id:
+                await voice.disconnect()
+            else:
+                need_connect = False
 
         if after.channel:
-            await after.channel.connect()
-            self.olha_ele_ae()
+            if need_connect:
+                await after.channel.connect()
+            #self.olha_ele_ae()
 
     def olha_ele_ae(self):
         if not self.voice_clients:
