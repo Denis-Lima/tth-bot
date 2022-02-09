@@ -21,7 +21,7 @@ class TTHBot(discord.Client):
         if not self.voice_clients:
             return
         voice = self.voice_clients[0]
-        voice.play(discord.FFmpegPCMAudio(executable='ffmpeg/bin/ffmpeg.exe', source='audios/olha_ele_ae.mp3'))
+        voice.play(discord.FFmpegPCMAudio(source='audios/olha_ele_ae.mp3'))
 
 client = TTHBot()
 client.run(TOKEN)
